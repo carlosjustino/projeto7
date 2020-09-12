@@ -2,6 +2,7 @@ package br.com.justino.projeto7.domain;
 
 import br.com.justino.projeto7.adapters.SenhaHashAdapter;
 import br.com.justino.projeto7.common.SenhaHash;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @Entity
-public class Usuario {
+public class Usuario extends PanacheEntity {
 
     public static final String REGEX_FIELD_NOME = "^\\b.{2,100}$";
     public static final String REGEX_FIELD_LOGIN = "^\\b{2,25}$";

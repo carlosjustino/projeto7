@@ -1,13 +1,15 @@
 package br.com.justino.projeto7.domain;
 
 import br.com.justino.projeto7.validators.IntegerValues;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class TarefaAlteracao {
+@Entity
+public class TarefaAlteracao  extends PanacheEntity {
 
     public static final Integer TIPOMOVIMENTO_INCLUSAO = 1;
     public static final Integer TIPOMOVIMENTO_ALTERACAO = 2;

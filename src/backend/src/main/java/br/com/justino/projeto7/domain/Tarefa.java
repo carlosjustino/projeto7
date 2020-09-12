@@ -1,6 +1,7 @@
 package br.com.justino.projeto7.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
-public class Tarefa {
+public class Tarefa  extends PanacheEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
