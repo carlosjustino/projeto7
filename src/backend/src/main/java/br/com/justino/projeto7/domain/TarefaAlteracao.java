@@ -3,6 +3,7 @@ package br.com.justino.projeto7.domain;
 import br.com.justino.projeto7.validators.IntegerValues;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -12,13 +13,15 @@ public class TarefaAlteracao {
     public static final Integer TIPOMOVIMENTO_ALTERACAO = 2;
     public static final Integer TIPOMOVIMENTO_CONCLUSAO = 3;
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
     @ManyToOne
     @JoinColumn(name="idTarefa", nullable=true)
     Tarefa tarefa;
 
-
+    @NotBlank(message="O campo Descricao deve ser informado na Alteração")
     String descricao;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -3,6 +3,7 @@ package br.com.justino.projeto7.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -21,10 +22,10 @@ public class Tarefa {
     @GeneratedValue(strategy=GenerationType.AUTO)
     Long numero;
 
-    @Column()
+    @NotBlank(message="O campo Titulo deve ser informado em Tarefa")
     String titulo;
 
-    @Column()
+    @NotBlank(message="O campo Descricao deve ser informado em Tarefa")
     String descricao;
 
     @NotNull(message="O campo Usuário deve ser informado em Tarefa")
