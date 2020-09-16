@@ -18,11 +18,11 @@ public class Usuario extends PanacheEntity {
     public static final String REGEX_FIELD_NOME = "^\\b.{2,100}$";
     public static final String REGEX_FIELD_LOGIN = "^\\b{2,25}$";
     public static final String REGEX_FIELD_EMAIL = "^[a-z0-9.]+@[a-z0-9]+\\.[a-z]+\\.([a-z]+)?$";
-
+/* Refactory para usar o PanacheEntity
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     Long id;
-
+*/
     @NotBlank(message="O campo Nome deve ser informado em Usuário")
     @Size(max=100, message="O campo Nome em Usuário deve ter o tamanho entre 2 e 100")
     @Pattern(regexp = REGEX_FIELD_NOME)

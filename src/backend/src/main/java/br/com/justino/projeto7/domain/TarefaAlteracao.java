@@ -7,18 +7,20 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class TarefaAlteracao  extends PanacheEntity {
 
-    public static final Integer TIPOMOVIMENTO_INCLUSAO = 1;
-    public static final Integer TIPOMOVIMENTO_ALTERACAO = 2;
-    public static final Integer TIPOMOVIMENTO_CONCLUSAO = 3;
+    public static final int TIPOMOVIMENTO_INCLUSAO = 1;
+    public static final int TIPOMOVIMENTO_ALTERACAO = 2;
+    public static final int TIPOMOVIMENTO_CONCLUSAO = 3;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    Long id;
-
+    /* Refactory para usar o PanacheEntity
+     @Id
+     @GeneratedValue(strategy=GenerationType.IDENTITY)
+     Long id;
+ */
     @ManyToOne
     @JoinColumn(name="idTarefa", nullable=true)
     Tarefa tarefa;
@@ -28,7 +30,7 @@ public class TarefaAlteracao  extends PanacheEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull(message="O campo datamovimento não pode ser vazio")
-    LocalDateTime datamovimento;
+    Date datamovimento;
 
     @IntegerValues(values = {TIPOMOVIMENTO_INCLUSAO, TIPOMOVIMENTO_ALTERACAO, TIPOMOVIMENTO_CONCLUSAO}, message = "Tipo de movimento não permitido")
     Integer tipomovimento;
@@ -59,11 +61,11 @@ public class TarefaAlteracao  extends PanacheEntity {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDatamovimento() {
+    public Date getDatamovimento() {
         return datamovimento;
     }
 
-    public void setDatamovimento(LocalDateTime datamovimento) {
+    public void setDatamovimento(Date datamovimento) {
         this.datamovimento = datamovimento;
     }
 

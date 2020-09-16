@@ -16,10 +16,11 @@ import static javax.persistence.CascadeType.REFRESH;
 @Entity
 public class Tarefa  extends PanacheEntity {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    Long id;
-
+    /* Refactory para usar o PanacheEntity
+     @Id
+     @GeneratedValue(strategy=GenerationType.IDENTITY)
+     Long id;
+ */
     @GeneratedValue(strategy=GenerationType.AUTO)
     Long numero;
 
@@ -36,7 +37,7 @@ public class Tarefa  extends PanacheEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull(message="O campo datainclusao não pode ser vazio")
-    LocalDateTime datainclusao;
+    Date datainclusao;
 
     @OneToMany(fetch = FetchType.LAZY, cascade=ALL, orphanRemoval=true, mappedBy="tarefa")
     @JsonIgnoreProperties("tarefa")
@@ -83,11 +84,11 @@ public class Tarefa  extends PanacheEntity {
         this.usuario = usuario;
     }
 
-    public LocalDateTime getDatainclusao() {
+    public Date getDatainclusao() {
         return datainclusao;
     }
 
-    public void setDatainclusao(LocalDateTime datainclusao) {
+    public void setDatainclusao(Date datainclusao) {
         this.datainclusao = datainclusao;
     }
 
