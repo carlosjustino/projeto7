@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class TarefaAlteracao  extends PanacheEntity {
@@ -28,14 +29,22 @@ public class TarefaAlteracao  extends PanacheEntity {
     @NotBlank(message="O campo Descricao deve ser informado na Alteração")
     String descricao;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull(message="O campo datamovimento não pode ser vazio")
-    Date datamovimento;
+    LocalDateTime datamovimento;
 
     @IntegerValues(values = {TIPOMOVIMENTO_INCLUSAO, TIPOMOVIMENTO_ALTERACAO, TIPOMOVIMENTO_CONCLUSAO}, message = "Tipo de movimento não permitido")
     Integer tipomovimento;
 
+    public TarefaAlteracao() {
+        datamovimento = LocalDateTime.now();
+    }
 
+    public TarefaAlteracao(Tarefa tarefa, @NotBlank(message = "O campo Descricao deve ser informado na Alteração") String descricao, Integer tipomovimento) {
+        this();
+        this.tarefa = tarefa;
+        this.descricao = descricao;
+        this.tipomovimento = tipomovimento;
+    }
 
     public Long getId() {
         return id;
@@ -61,11 +70,11 @@ public class TarefaAlteracao  extends PanacheEntity {
         this.descricao = descricao;
     }
 
-    public Date getDatamovimento() {
+    public LocalDateTime getDatamovimento() {
         return datamovimento;
     }
 
-    public void setDatamovimento(Date datamovimento) {
+    public void setDatamovimento(LocalDateTime datamovimento) {
         this.datamovimento = datamovimento;
     }
 
@@ -75,5 +84,18 @@ public class TarefaAlteracao  extends PanacheEntity {
 
     public void setTipomovimento(Integer tipomovimento) {
         this.tipomovimento = tipomovimento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TarefaAlteracao tarefaAlteracao = (TarefaAlteracao) o;
+        return Objects.equals(id, tarefaAlteracao.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

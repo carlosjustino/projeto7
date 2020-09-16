@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Objects;
 
 @Entity
 public class Usuario extends PanacheEntity {
@@ -86,6 +87,17 @@ public class Usuario extends PanacheEntity {
         this.senha = pSenha;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
 }
