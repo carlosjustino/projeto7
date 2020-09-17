@@ -17,8 +17,7 @@ import java.util.Objects;
 public class Usuario extends PanacheEntity {
 
     public static final String REGEX_FIELD_NOME = "^\\b.{2,100}$";
-    public static final String REGEX_FIELD_LOGIN = "^\\b{2,25}$";
-    public static final String REGEX_FIELD_EMAIL = "^[a-z0-9.]+@[a-z0-9]+\\.[a-z]+\\.([a-z]+)?$";
+    public static final String REGEX_FIELD_EMAIL = "^[a-z0-9\\.]+\\@[a-z0-9]+\\.[a-z]+(\\.[a-z]+)?$";
 /* Refactory para usar o PanacheEntity
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,18 +27,17 @@ public class Usuario extends PanacheEntity {
     @Size(max=100, message="O campo Nome em Usuário deve ter o tamanho entre 2 e 100")
     @Pattern(regexp = REGEX_FIELD_NOME)
     @Column(length=100)
-    String nome;
+    private String nome;
 
     @NotBlank(message="O campo Login deve ser informado em Usuário")
     @Size(max=25, message="O campo Nome em Usuário deve ter o tamanho entre 2 e 25")
-    @Pattern(regexp = REGEX_FIELD_LOGIN)
     @Column(length=25)
-    String login;
+    private String login;
 
     @NotBlank(message="O campo Email deve ser informado em Usuário")
     @Pattern(regexp = REGEX_FIELD_EMAIL)
     @Column(length=200)
-    String email;
+    private String email;
 
     @NotNull(message="O campo Senha deve ser informado em Usuário")
     @Embedded

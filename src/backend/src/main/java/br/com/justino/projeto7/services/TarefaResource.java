@@ -4,6 +4,8 @@ import br.com.justino.projeto7.domain.Tarefa;
 import br.com.justino.projeto7.domain.TarefaAlteracao;
 import br.com.justino.projeto7.domain.Usuario;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -14,6 +16,9 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TarefaResource {
+
+    @Inject
+    EntityManager em;
 
     @GET
     public List<Tarefa> getAllTask(@PathParam("id") Long idUsuario){
