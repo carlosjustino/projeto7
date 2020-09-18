@@ -1,9 +1,46 @@
-<h1>Hi {{currentUser.nome}}!</h1>
-<p>You're logged in with Angular 7!!</p>
-<h3>All registered users:</h3>
+<h1>Tarefas de {{currentUser.nome}}!</h1>
+
+<div class="container">
+  <button mat-mini-fab color="primary" aria-label="Nova tarefa" (click)="goToDetalhesByState()">
+    <mat-icon>plus_one</mat-icon>
+  </button>
+  <h3>Tarefas:</h3>
+</div>
 <ul>
-  <li *ngFor="let user of users">
-    {{user.login}} ({{user.nome}} {{user.email}})
-    - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+  <li *ngFor="let task of tarefas">
+    {{task.numero}} ({{task.titulo}}
+    - <a (click)="deleteTask(task.id)" class="text-danger">Delete</a>
   </li>
 </ul>
+
+
+<table mat-table [dataSource]="tarefas" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="numero">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="titulo">
+    <th mat-header-cell *matHeaderCellDef> Título </th>
+    <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="datainclusao">
+    <th mat-header-cell *matHeaderCellDef> Data de Inclusão </th>
+    <td mat-cell *matCellDef="let element"> {{element.datainclusao.toLocaleString('pt-br')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="concluida">
+    <th mat-header-cell *matHeaderCellDef> Concluída </th>
+    <td mat-cell *matCellDef="let element"> {{element.concluida}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef> Ações </th>
+    <td mat-cell *matCellDef="let element"> xxxx </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

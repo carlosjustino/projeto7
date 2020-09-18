@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TarefasComponent } from './tarefas';
+import { TarefasComponent, TarefaComponent } from './tarefas';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { AuthGuard } from './_helpers';
@@ -9,6 +9,7 @@ const routes: Routes = [
  { path: '', component: TarefasComponent , canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'tarefa', component: TarefaComponent},
      { path: '**', redirectTo: '' }
 ];
 

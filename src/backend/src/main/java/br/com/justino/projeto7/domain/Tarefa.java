@@ -2,6 +2,8 @@ package br.com.justino.projeto7.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,7 +25,6 @@ public class Tarefa  extends PanacheEntity {
      @GeneratedValue(strategy=GenerationType.IDENTITY)
      Long id;
  */
-    @GeneratedValue(strategy=GenerationType.AUTO)
     Long numero;
 
     @NotBlank(message="O campo Titulo deve ser informado em Tarefa")
@@ -55,7 +56,9 @@ public class Tarefa  extends PanacheEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @Column(name = "numero", nullable = true, insertable = false, updatable = false)
+    @Generated(GenerationTime.ALWAYS)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long getNumero() {
         return numero;
     }

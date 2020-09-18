@@ -1,48 +1,64 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject , ReflectiveInjector} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { User, Tarefa } from '../_models';
+import { TarefaService, AuthenticationService } from '../_services';
+import { Router, Navigation } from '@angular/router';
 
-
-import { User } from '../_models';
-import { UserService, AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-tarefas',
   templateUrl: './tarefas.component.html',
   styleUrls: ['./tarefas.component.scss']
+
 })
 export class TarefasComponent implements OnInit , OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
-  users: User[] = [];
+  tarefas: Tarefa[] = [];
+  displayedColumns: string[] = ['numero','titulo','datainclusao', 'concluida','acoes'];
+
 
   constructor(
     private authenticationService: AuthenticationService,
-    private userService: UserService  )
+    private tarefaService: TarefaService,
+      private router: Router)
     {
       this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
       });
     }
 
+
   ngOnInit() {
-    this.loadAllUsers();
+    this.loadAllTasks();
   }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
   }
+/*
+  goToDetalhesByService(tarefa: Tarefa) {
+      this.tarefaService.setTarefa(tarefa);
+      this.router.navigateByUrl('/tarefa')
+    }
+*/
+    goToDetalhesByState(tarefa?: Tarefa) {
+      this.router.navigateByUrl('/tarefa', {
+        state: { tarefa: tarefa }
+      })
+    }
 
-  /*deleteUser(id: number) {
-    this.userService.delete(id).pipe(first()).subscribe(() => {
-      this.loadAllUsers()
+  deleteTask(id: number) {
+    this.tarefaService.delete(id).pipe(first()).subscribe(() => {
+      this.loadAllTasks()
     });
-  }*/
+  }
 
-  private loadAllUsers() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
+  private loadAllTasks() {
+    this.tarefaService.getAll(this.currentUser.id).pipe(first()).subscribe(tasks => {
+      this.tarefas = tasks;
     });
   }
 }
