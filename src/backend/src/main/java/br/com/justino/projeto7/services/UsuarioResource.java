@@ -1,11 +1,12 @@
 package br.com.justino.projeto7.services;
 
+import br.com.justino.projeto7.exceptions.JustinoException;
+import br.com.justino.projeto7.domain.ContainerUsuario;
 import br.com.justino.projeto7.domain.Usuario;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -25,10 +26,21 @@ public class UsuarioResource {
 
     @POST
     @Transactional
-    public Usuario create(@Valid Usuario usuario){
-        usuario.getSenha().verificaAtualizacaoDeSenha(true,2,100);
-        usuario.persistAndFlush();
-        return usuario;
+    @Path("/create")
+    public Usuario create(ContainerUsuario usuario){
+        Usuario u = new Usuario(usuario);
+        u.persistAndFlush();
+        return u;
+    }
+
+    @POST
+    @Transactional
+    @Path("/autenticar")
+    public Usuario autenticar(ContainerUsuario usuario) throws JustinoException {
+        Usuario u = Usuario.find("login", usuario.getLogin()).firstResult();
+        if (u.getSenha().senhaEhValida(usuario.getSenha()))
+            return u;
+        else throw new JustinoException("Usuário ou senha invalidos");
     }
 
     @GET

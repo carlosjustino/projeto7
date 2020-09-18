@@ -12,9 +12,11 @@ import java.util.Objects;
 
 @Entity
 public class TarefaAlteracao  extends PanacheEntity {
-
+    @Transient
     public static final int TIPOMOVIMENTO_INCLUSAO = 1;
+    @Transient
     public static final int TIPOMOVIMENTO_ALTERACAO = 2;
+    @Transient
     public static final int TIPOMOVIMENTO_CONCLUSAO = 3;
 
     /* Refactory para usar o PanacheEntity

@@ -17,5 +17,8 @@
       "es2018",
       "dom"
     ]
+  },
+  "paths": {
+    "@environments/*": ["src/environments/*"]
   }
 }

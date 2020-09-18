@@ -10,13 +10,7 @@ import java.io.Serializable;
 @Embeddable
 public final class SenhaHash implements Serializable {
 
-    public SenhaHash() {
-        senha = "";
-    }
 
-    public SenhaHash(String senha) {
-        this.senha = senha;
-    }
 
     private String senha;
     @Transient
@@ -27,6 +21,14 @@ public final class SenhaHash implements Serializable {
     private String senhaNova;
     @Transient
     private boolean senhaJaHasheada;
+
+    public SenhaHash() {
+        senha = "";
+    }
+
+    public SenhaHash(String senha) {
+        this.senha = senha;
+    }
 
     public String getSenha() {
         return senha;

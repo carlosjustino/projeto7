@@ -19,16 +19,19 @@ import java.util.Objects;
 )
 public class Usuario extends PanacheEntity {
 
+    @Transient
     public static final String REGEX_FIELD_NOME = "^\\b.{2,100}$";
+    @Transient
     public static final String REGEX_FIELD_EMAIL = "^[a-z0-9\\.]+\\@[a-z0-9]+\\.[a-z]+(\\.[a-z]+)?$";
-/* Refactory para usar o PanacheEntity
+
+    /* Refactory para usar o PanacheEntity
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     Long id;
 */
     @NotBlank(message="O campo Nome deve ser informado em Usuário")
     @Size(max=100, message="O campo Nome em Usuário deve ter o tamanho entre 2 e 100")
-    @Pattern(regexp = REGEX_FIELD_NOME)
+    @Pattern(regexp = REGEX_FIELD_NOME,  message = "{br.com.justino.projeto7.validation.usuario.nome}")
     @Column(length=100)
     private String nome;
 
@@ -38,7 +41,7 @@ public class Usuario extends PanacheEntity {
     private String login;
 
     @NotBlank(message="O campo Email deve ser informado em Usuário")
-    @Pattern(regexp = REGEX_FIELD_EMAIL)
+    @Pattern(regexp = REGEX_FIELD_EMAIL, message = "{br.com.justino.projeto7.validation.usuario.email}")
     @Column(length=200)
     private String email;
 
@@ -47,6 +50,17 @@ public class Usuario extends PanacheEntity {
     @AttributeOverride(name = "senha", column = @Column (name="senha", nullable = false, length = 500) )
     @XmlJavaTypeAdapter(SenhaHashAdapter.class)
     private SenhaHash senha;
+
+    public Usuario(){
+
+    }
+
+    public Usuario(ContainerUsuario containerUsuario) {
+        setLogin(containerUsuario.getLogin());
+        setNome(containerUsuario.getNome());
+        setEmail(containerUsuario.getEmail());
+        setSenha(new SenhaHash(containerUsuario.getSenha()));
+    }
 
     public Long getId() {
         return id;
