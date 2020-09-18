@@ -26,6 +26,7 @@ public class UsuarioResource {
     @POST
     @Transactional
     public Usuario create(@Valid Usuario usuario){
+        usuario.getSenha().verificaAtualizacaoDeSenha(true,2,100);
         usuario.persistAndFlush();
         return usuario;
     }

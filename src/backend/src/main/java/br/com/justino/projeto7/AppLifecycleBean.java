@@ -41,6 +41,7 @@ public class AppLifecycleBean {
         usuario.setNome("Carlos Justino");
         SenhaHash snh = new SenhaHash();
         snh.setSenhaNova("123456");
+        snh.verificaAtualizacaoDeSenha(true,2,100);
         usuario.setSenha(snh);
         usuario.persist();
     }

@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 @Entity
+@Table(name="usuario",
+        indexes = { @Index(name = "IDX_login", columnList = "login", unique = true) }
+)
 public class Usuario extends PanacheEntity {
 
     public static final String REGEX_FIELD_NOME = "^\\b.{2,100}$";
