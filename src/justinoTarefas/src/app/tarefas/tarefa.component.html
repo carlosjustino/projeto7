@@ -1,6 +1,6 @@
 
 
-<h2>Tarefa {{tarefa.numero}}</h2>
+<h2>Tarefa {{tarefa.id}}</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="titulo">Título</label>
@@ -17,8 +17,14 @@
       <div *ngIf="f.descricao.errors.required">Descrição não pode ficar em branco</div>
     </div>
   </div>
+  <div class="form-group">
+  <label for="concluida">Concluida</label>
+  <div class="onoffswitch">
+    <input  formControlName="concluida" type="checkbox" name="concluida" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
+    <label class="onoffswitch-label" for="myonoffswitch"></label>
+  </div>
+  </div>
 
-  <mat-slide-toggle formControlName="concluida" class="form-control">Concluída</mat-slide-toggle>
 
   <div class="form-group">
     <button [disabled]="loading" class="btn btn-primary">Salvar</button>

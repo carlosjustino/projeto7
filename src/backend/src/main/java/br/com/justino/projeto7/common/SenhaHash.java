@@ -81,6 +81,9 @@ public final class SenhaHash implements Serializable {
                     && !senhaEhValida(getSenhaAntiga())) {
 
                 StaticFunctions.throwConstraintViolationException("Senha antiga não confere", this);
+            }else{
+                if (getSenha() != null && !getSenha().isEmpty() && getSenhaNova() == null)
+                    setSenhaNova(getSenha());
             }
 
             if (getSenhaNova().length() < minSize || getSenhaNova().length() > maxSize)

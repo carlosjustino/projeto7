@@ -29,6 +29,7 @@ public class UsuarioResource {
     @Path("/create")
     public Usuario create(ContainerUsuario usuario){
         Usuario u = new Usuario(usuario);
+        u.getSenha().verificaAtualizacaoDeSenha(true,6,100);
         u.persistAndFlush();
         return u;
     }

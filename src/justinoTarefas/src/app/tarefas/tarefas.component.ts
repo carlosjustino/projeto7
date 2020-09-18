@@ -55,6 +55,46 @@ export class TarefasComponent implements OnInit , OnDestroy {
       this.loadAllTasks()
     });
   }
+  formatLogico(data){
+    if (data && data == true)
+        return "Sim";
+    else
+        return "Não";
+  }
+
+  formatDate(data) {
+    try{
+      if (data) {
+        let day= data[2],
+
+           month=  data[1],
+
+           year=  data[0]
+          ,
+          hour=  data[3]
+          ,
+          minute= data[4]
+          ,
+          second =  data[5]
+          ,
+          millisecond=  data[6],
+        pattern= "dd/MM/yyyy HH:mm:ss";
+
+        return pattern
+          .replace("dd", day)
+          .replace("MM", month)
+          .replace("yyyy", year)
+          .replace("HH", hour)
+          .replace("mm", minute)
+          .replace("ss", second)
+          .replace("fff", millisecond);
+}
+      return data;
+    } catch(e){
+      console.error(e);
+    }
+
+  }
 
   private loadAllTasks() {
     this.tarefaService.getAll(this.currentUser.id).pipe(first()).subscribe(tasks => {
