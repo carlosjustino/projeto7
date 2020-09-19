@@ -13,7 +13,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertComponent } from './_components';
+import { AlertComponent, ConfirmationDialog } from './_components';
 
 import { AppComponent } from './app.component';
 
@@ -35,7 +35,8 @@ import {MatInputModule} from '@angular/material/input';
     RegisterComponent,
     TarefasComponent,
     TarefaComponent,
-    AlertComponent
+    AlertComponent,
+    ConfirmationDialog
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,7 @@ import {MatInputModule} from '@angular/material/input';
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
   ],
-  bootstrap: [AppComponent]
-  //entryComponents: [DialogOverviewTarefaDialog]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialog]
 })
 export class AppModule { }

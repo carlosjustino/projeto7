@@ -4,7 +4,8 @@ import { first } from 'rxjs/operators';
 import { User, Tarefa } from '../_models';
 import { TarefaService, AuthenticationService } from '../_services';
 import { Router, Navigation } from '@angular/router';
-
+import { ConfirmationDialog } from '../_components';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tarefas',
@@ -19,9 +20,11 @@ export class TarefasComponent implements OnInit , OnDestroy {
   displayedColumns: string[] = ['numero','titulo','datainclusao', 'concluida','acoes'];
 
 
+
   constructor(
     private authenticationService: AuthenticationService,
     private tarefaService: TarefaService,
+    public dialog: MatDialog,
       private router: Router)
     {
       this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -49,6 +52,21 @@ export class TarefasComponent implements OnInit , OnDestroy {
         state: { tarefa: tarefa }
       })
     }
+
+  openConfirmationDialog(task: Tarefa ){
+    const aux = "Tem certeza que deseja deletar a Tarefa " + task.id;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      disableClose: false
+      , data : {mensagem : aux}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+       this.deleteTask(task.id);
+      }
+
+    });
+  }
 
   deleteTask(id: number) {
     this.tarefaService.delete(id).pipe(first()).subscribe(() => {

@@ -32,10 +32,10 @@ export class TarefaService {
     }
 
     update(tarefa: Tarefa) {
-        return this.http.put(`${config.apiUrl}/tarefa/${tarefa.id}`, tarefa);
+        return this.http.put(`${environment.apiUrl}/tarefa/${tarefa.id}`, tarefa);
     }
 
     delete(id: number) {
-        return this.http.delete(`${config.apiUrl}/tarefa/${id}`);
+        return this.http.delete(`${environment.apiUrl}/tarefa/${id}`);
     }
 }
